@@ -123,7 +123,7 @@ export default function ComparePage() {
                 <th key={vehicle.id} className="px-6 py-3 text-center min-w-[250px]">
                   <div className="relative">
                     <button
-                      onClick={() => removeVehicle(vehicle.id)}
+                      onClick={() => removeVehicle(String(vehicle.id))}
                       className="absolute top-0 right-0 text-red-600 hover:text-red-700"
                     >
                       ✕
