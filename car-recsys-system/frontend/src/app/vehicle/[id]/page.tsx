@@ -21,7 +21,7 @@ export default function VehicleDetailPage() {
   const [loading, setLoading] = useState(true);
 
   const vehicleId = params.id as string;
-  const favorite = vehicle ? isFavorite(vehicle.id) : false;
+  const favorite = vehicle ? isFavorite(String(vehicle.id)) : false;
 
   useEffect(() => {
     if (vehicleId) {
@@ -69,11 +69,11 @@ export default function VehicleDetailPage() {
 
     try {
       if (favorite) {
-        await feedbackService.removeFavorite(vehicle.id);
-        removeFavorite(vehicle.id);
+        await feedbackService.removeFavorite(String(vehicle.id));
+        removeFavorite(String(vehicle.id));
       } else {
-        await feedbackService.addFavorite(vehicle.id);
-        addFavorite(vehicle.id);
+        await feedbackService.addFavorite(String(vehicle.id));
+        addFavorite(String(vehicle.id));
       }
     } catch (error) {
       console.error('Failed to toggle favorite:', error);
@@ -84,7 +84,7 @@ export default function VehicleDetailPage() {
     if (isAuthenticated && vehicle) {
       try {
         await feedbackService.trackInteraction({
-          vehicle_id: vehicle.id,
+          vehicle_id: String(vehicle.id),
           action: 'contact',
         });
       } catch (error) {
@@ -93,8 +93,9 @@ export default function VehicleDetailPage() {
     }
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+  const formatPrice = (price: number | null) => {
+    if (price === null) return 'N/A';
+    return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,

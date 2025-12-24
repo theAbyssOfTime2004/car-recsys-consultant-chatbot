@@ -71,7 +71,7 @@ export default function FavoritesPage() {
           <div className="text-6xl mb-4">🤍</div>
           <p className="text-gray-600 text-lg mb-2">No favorite cars yet</p>
           <p className="text-gray-500 mb-6">
-            Add cars you're interested in to your favorites list
+            Add cars you&apos;re interested in to your favorites list
           </p>
           <a
             href="/search"

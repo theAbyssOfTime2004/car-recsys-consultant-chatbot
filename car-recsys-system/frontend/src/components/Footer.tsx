@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-gray-800 mb-3">About CarMarket</h3>
             <p className="text-sm text-gray-500">
-              Vietnam's leading online car marketplace
+              Vietnam&apos;s leading online car marketplace
             </p>
           </div>
           

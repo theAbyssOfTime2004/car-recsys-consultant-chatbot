@@ -31,6 +31,7 @@ export interface Vehicle {
   location: string | null;
   url: string | null;
   posted_date: string | null;
+  condition?: string | null;
 }
 
 export interface SearchFilters {

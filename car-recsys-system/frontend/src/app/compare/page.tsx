@@ -43,8 +43,9 @@ export default function ComparePage() {
     }
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+  const formatPrice = (price: number | null) => {
+    if (price === null) return 'N/A';
+    return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
@@ -125,7 +126,7 @@ export default function ComparePage() {
                 <th key={vehicle.id} className="px-6 py-3 text-center min-w-[250px]">
                   <div className="relative">
                     <button
-                      onClick={() => removeVehicle(vehicle.id)}
+                      onClick={() => removeVehicle(String(vehicle.id))}
                       className="absolute top-0 right-0 text-red-600 hover:text-red-700"
                     >
                       ✕
