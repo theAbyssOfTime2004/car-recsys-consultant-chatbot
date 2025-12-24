@@ -27,8 +27,8 @@ export default function SearchBar({ onSearch, initialFilters = {} }: SearchBarPr
         <input
           type="text"
           placeholder="Search cars..."
-          value={filters.q || ''}
-          onChange={(e) => handleChange('q', e.target.value)}
+          value={filters.query || ''}
+          onChange={(e) => handleChange('query', e.target.value)}
           className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         
@@ -45,16 +45,6 @@ export default function SearchBar({ onSearch, initialFilters = {} }: SearchBarPr
           <option value="Ford">Ford</option>
           <option value="Kia">Kia</option>
           <option value="Vinfast">Vinfast</option>
-        </select>
-        
-        <select
-          value={filters.condition || ''}
-          onChange={(e) => handleChange('condition', e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-        >
-          <option value="">Condition</option>
-          <option value="new">New</option>
-          <option value="used">Used</option>
         </select>
       </div>
 

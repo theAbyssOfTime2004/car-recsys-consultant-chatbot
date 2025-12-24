@@ -31,7 +31,7 @@ export default function SearchPage() {
   const performSearch = async (filters: SearchFilters) => {
     try {
       setLoading(true);
-      const result = await vehicleService.search({ ...filters, limit: 20 });
+      const result = await vehicleService.search({ ...filters, page_size: 20 });
       setSearchResult(result);
     } catch (error) {
       console.error('Search failed:', error);
@@ -69,8 +69,18 @@ export default function SearchPage() {
               Found <span className="font-bold">{searchResult.total}</span> results
             </p>
             <select
-              value={filters.sort || ''}
-              onChange={(e) => handleSearch({ ...filters, sort: e.target.value })}
+              value={filters.sort_by ? (filters.sort_order === 'desc' ? `-${filters.sort_by}` : filters.sort_by) : ''}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (!value) {
+                  const { sort_by, sort_order, ...rest } = filters;
+                  handleSearch(rest);
+                } else {
+                  const isDesc = value.startsWith('-');
+                  const sortBy = isDesc ? value.slice(1) : value;
+                  handleSearch({ ...filters, sort_by: sortBy, sort_order: isDesc ? 'desc' : 'asc' });
+                }
+              }}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
               <option value="">Sort by</option>
@@ -92,7 +102,7 @@ export default function SearchPage() {
               </div>
 
               {/* Pagination */}
-              {searchResult.total > searchResult.limit && (
+              {searchResult.total > searchResult.page_size && (
                 <div className="flex justify-center items-center space-x-2">
                   <button
                     onClick={() => handlePageChange((filters.page || 1) - 1)}
@@ -102,11 +112,11 @@ export default function SearchPage() {
                     ← Previous
                   </button>
                   <span className="text-gray-600">
-                    Page {filters.page || 1} / {Math.ceil(searchResult.total / searchResult.limit)}
+                    Page {filters.page || 1} / {Math.ceil(searchResult.total / searchResult.page_size)}
                   </span>
                   <button
                     onClick={() => handlePageChange((filters.page || 1) + 1)}
-                    disabled={(filters.page || 1) >= Math.ceil(searchResult.total / searchResult.limit)}
+                    disabled={(filters.page || 1) >= Math.ceil(searchResult.total / searchResult.page_size)}
                     className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next →

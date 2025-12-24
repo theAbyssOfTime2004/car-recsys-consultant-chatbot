@@ -43,7 +43,8 @@ export default function ComparePage() {
     }
   };
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | null) => {
+    if (price === null) return 'N/A';
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND',
@@ -170,10 +171,8 @@ export default function ComparePage() {
               <td className="px-6 py-4 font-medium text-gray-900 sticky left-0 bg-white">Condition</td>
               {vehicles.map((vehicle) => (
                 <td key={vehicle.id} className="px-6 py-4 text-center">
-                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    vehicle.condition === 'new' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
-                  }`}>
-                    {vehicle.condition === 'new' ? 'New' : 'Used'}
+                  <span className="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
+                    N/A
                   </span>
                 </td>
               ))}
