@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">About CarMarket</h3>
             <p className="text-gray-400 text-sm">
-              Vietnam's leading online car marketplace
+              Vietnam&apos;s leading online car marketplace
             </p>
           </div>
           
